@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/extwiii/Image-Search-Abstraction-Layer/issues"
   },
-  "homepage": "https://github.com/extwiii/Image-Search-Abstraction-Layer#readme"
+  "homepage": "https://github.com/extwiii/Image-Search-Abstraction-Layer#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.10",
+    "node-bing-api": "^2.4.1"
+  }
 }

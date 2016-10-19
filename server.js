@@ -1,18 +1,20 @@
 var express = require('express');
 var app = express();
 var mongo = require('mongodb').MongoClient;
+var path = require('path');
 var Bing = require('node-bing-api')
             ({ accKey: process.env.BING_KEY });
-
 var imageUrl = process.env.MONGOLAB_IMAGE_SEARCH 
 				||'mongodb://localhost:27017/imagesearch';
 
+app.get('/', function (req, res) {
+		res.sendFile(path.join(__dirname + '/index.html'));
+});
 // Get image by query route
 app.get('/api/imagesearch/:query', function(req, res) {
 	var query = req.params.query;
 	var offset = req.query.offset || 0;
 	var results = [];
-
 	// Call Bing Api and set up call
 	Bing.images(query, {top: 10, skip: parseInt(offset)}
 	    ,function(error, response, body){
@@ -39,11 +41,9 @@ app.get('/api/imagesearch/:query', function(req, res) {
 				});
 				// show the result
 				res.json(results);
-			});
-		
+			});		
 	});
 });
-
 // Get latest image queries
 app.get('/api/latest/imagesearch', function(req, res) {
 	// connect mongodb to get latest
@@ -62,7 +62,6 @@ app.get('/api/latest/imagesearch', function(req, res) {
 		});
 	});
 });
-
 // Set port
 var port = process.env.PORT || 3000; 
 
